@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIG BAG</title>
+    <link rel="icon" type="image/svg" href="imgs/bag-icon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <title>BIG BAG — Onlayn do'kon</title>
+    <meta name="description" content="BIG BAG — qulay va ishonchli onlayn do'kon.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BIG BAG">
+    <meta property="og:title" content="BIG BAG — Onlayn do'kon">
+    <meta property="og:description" content="BIG BAG — qulay va ishonchli onlayn do'kon.">
+    <meta property="og:url" content="https://delevoper-uz.github.io/BIG-BAG/">
+    <meta property="og:image" content="https://delevoper-uz.github.io/BIG-BAG/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <div class="loader-overlay" id="loader">
+        <i class="fa-solid fa-spinner fa-spin loader-icon"></i>
+    </div>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>BIG BAG</span>
+            </a>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="#hero">Bosh sahifa</a>
+                <a href="#store">Do'kon</a>
+                <a href="#popular">Mashhur</a>
+                <a href="#contact">Aloqa</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Qidirish...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+                <div class="cart-icon-wrapper" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+
+                <div class="user-profile-wrapper">
+                    <button class="profile-btn" onclick="toggleProfileMenu()">
+                        <i class="fa-solid fa-user"></i>
+                    </button>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#"><i class="fa-solid fa-user"></i> Profil</a>
+                        <a href="#"><i class="fa-solid fa-box"></i> Buyurtmalar</a>
+                        <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+                    </div>
+                </div>
+
+                <button class="burger-btn" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars" id="burgerIcon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3>Sizning savatchangiz</h3>
+                <button class="close-cart-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="cart-body" id="cartItems"></div>
+            <div class="cart-footer">
+                <div class="total-price-box">
+                    <span>Jami:</span>
+                    <strong id="cartTotalPrice">0 so'm</strong>
+                </div>
+                <button class="checkout-btn" onclick="clearCart()">
+                    Buyurtma berish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-text">
+                <span class="hero-badge">Yangi Kolleksiya 2026</span>
+                <h1 class="hero-title">Sizning Uslubingiz Usiz Mukammal Emas</h1>
+                <p class="hero-desc">Sifatli, zamonaviy va chidamli sumkalar hamda ryukzaklar to'plami. Kundalik hayotingizga qulaylik va estetika bag'ishlang.</p>
+                <a href="#store" class="hero-btn">Xarid qilish</a>
+            </div>
+            <div class="hero-image-wrapper">
+                <img src="imgs/mountain7.jpg" alt="rasm" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee-section">
+        <div class="marquee-content">
+            <span>ZAMONAVIY USLUB</span>
+            <span>PREMIUM SIFAT</span>
+            <span>SHAHAR VA TUG'ISH UCHUN</span>
+            <span>SUVG'A CHIDAMLI MATERIAL</span>
+            <span>ZAMONAVIY USLUB</span>
+            <span>PREMIUM SIFAT</span>
+            <span>SHAHAR VA TUG'ISH UCHUN</span>
+            <span>SUVG'A CHIDAMLI MATERIAL</span>
+        </div>
+    </div>
+
+    <section class="store-section" id="store">
+        <div class="section-container">
+            <h2 class="section-title">BIG BAG Do'koni</h2>
+
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>Rang:</label>
+                    <select id="colorFilter" onchange="filterProducts()">
+                        <option value="all">Barchasi</option>
+                        <option value="qora">Qora</option>
+                        <option value="kulrang">Kulrang</option>
+                        <option value="to'q ko'k">To'q ko'k</option>
+                        <option value="ko'k">Ko'k</option>
+                        <option value="qizil">Qizil</option>
+                        <option value="sariq">Sariq</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Tur:</label>
+                    <select id="typeFilter" onchange="filterProducts()">
+                        <option value="all">Barchasi</option>
+                        <option value="ryukzak">Ryukzak</option>
+                        <option value="crossbody">Crossbody</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Saralash:</label>
+                    <select id="sortFilter" onchange="filterProducts()">
+                        <option value="default">Odatiy</option>
+                        <option value="asc">Arzonroq</option>
+                        <option value="desc">Qimmatroq</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <section class="popular-section" id="popular">
+        <div class="section-container">
+            <h2 class="section-title">Mashhur Sumkalar</h2>
+            <div class="popular-grid">
+                <div class="popular-card">
+                    <div class="popular-img-box">
+                        <img src="imgs/img12.jpg" alt="rasm">
+                    </div>
+                    <div class="popular-info">
+                        <h3>Urban Trend Kulrang</h3>
+                        <p class="popular-price">520 000 so'm</p>
+                        <button class="detail-btn" onclick="openModal('Urban Trend Kulrang', 'Shahar hayoti va ish uchrashuvlari uchun juda qulay va ixcham model. Suv o\'tkazmaydigan material.', 'imgs/img12.jpg')">Batafsil</button>
+                    </div>
+                </div>
+
+                <div class="popular-card">
+                    <div class="popular-img-box">
+                        <img src="imgs/img14.jpg" alt="rasm">
+                    </div>
+                    <div class="popular-info">
+                        <h3>Black Edition Pro</h3>
+                        <p class="popular-price">680 000 so'm</p>
+                        <button class="detail-btn" onclick="openModal('Black Edition Pro', 'Katta sig\'imli, noutbuk va hujjatlar uchun maxsus himoyalangan bo\'lmali premium model.', 'imgs/img14.jpg')">Batafsil</button>
+                    </div>
+                </div>
+
+                <div class="popular-card">
+                    <div class="popular-img-box">
+                        <img src="imgs/img15.jpg" alt="rasm">
+                    </div>
+                    <div class="popular-info">
+                        <h3>Classic Blue Style</h3>
+                        <p class="popular-price">440 000 so'm</p>
+                        <button class="detail-btn" onclick="openModal('Classic Blue Style', 'Yorqin va zamonaviy ko\'rinishga ega ko\'k rangli chidamli sport ryukzaki.', 'imgs/img15.jpg')">Batafsil</button>
+                    </div>
+                </div>
+
+                <div class="popular-card">
+                    <div class="popular-img-box">
+                        <img src="imgs/img16.jpg" alt="rasm">
+                    </div>
+                    <div class="popular-info">
+                        <h3>Aqua Turquoise Line</h3>
+                        <p class="popular-price">490 000 so'm</p>
+                        <button class="detail-btn" onclick="openModal('Aqua Turquoise Line', 'Noodatiy firuza rangdagi yengil va zamonaviy kundalik hamroh.', 'imgs/img16.jpg')">Batafsil</button>
+                    </div>
+                </div>
+
+                <div class="popular-card">
+                    <div class="popular-img-box">
+                        <img src="imgs/img17.jpg" alt="rasm">
+                    </div>
+                    <div class="popular-info">
+                        <h3>Brown Leather Mix</h3>
+                        <p class="popular-price">750 000 so'm</p>
+                        <button class="detail-btn" onclick="openModal('Brown Leather Mix', 'Jigarrang va to\'q ko\'k ranglar uyg\'unligidagi eksklyuziv sifatli sumka.', 'imgs/img17.jpg')">Batafsil</button>
+                    </div>
+                </div>
+
+                <div class="popular-card">
+                    <div class="popular-img-box">
+                        <img src="imgs/img18.jpg" alt="rasm">
+                    </div>
+                    <div class="popular-info">
+                        <h3>Fresh Turquoise Explorer</h3>
+                        <p class="popular-price">510 000 so'm</p>
+                        <button class="detail-btn" onclick="openModal('Fresh Turquoise Explorer', 'Sayohatlar va faol hayot tarzi uchun maxsus mo\'ljallangan qulay konstruktsiya.', 'imgs/img18.jpg')">Batafsil</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="details-modal" id="detailsModal">
+        <div class="details-content">
+            <button class="close-details-btn" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="details-body">
+                <img src="" id="modalImg" alt="rasm">
+                <div class="details-text">
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalDesc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="history-section" id="history">
+        <div class="section-container">
+            <h2 class="section-title">Sumkalar Tarixi</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-img-box">
+                        <img src="imgs/mountain1.jpg" alt="rasm">
+                    </div>
+                    <div class="timeline-content">
+                        <span class="year">XIV Asr</span>
+                        <h3>Boshlang'ich Davr</h3>
+                        <p>Dastlabki sumkalar kamar atrofiga boylanadigan kichik hamyon shaklida paydo bo'lgan va asosan tangalar uchun ishlatilgan.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-img-box">
+                        <img src="imgs/mountain2.jpg" alt="rasm">
+                    </div>
+                    <div class="timeline-content">
+                        <span class="year">XVII Asr</span>
+                        <h3>Xotin-qizlar Sumkachalari</h3>
+                        <p>Sumkalar faqat amaliy emas, balki kiyimning uslubiy qismi va ijtimoiy maqom belgisiga aylana boshladi.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-img-box">
+                        <img src="imgs/mountain3.jpg" alt="rasm">
+                    </div>
+                    <div class="timeline-content">
+                        <span class="year">XIX Asr</span>
+                        <h3>Chamadon va Yo'l Sumkalari</h3>
+                        <p>Temir yo'llar rivojlanishi bilan yo'lovchilar uchun kattaroq va chidamli yo mebel-sumkalar ixtiro qilindi.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-img-box">
+                        <img src="imgs/mountain4.jpg" alt="rasm">
+                    </div>
+                    <div class="timeline-content">
+                        <span class="year">XX Asr Boshlari</span>
+                        <h3>Zamonaviy Ryukzaklar</h3>
+                        <p>Harbiylar va alpinistlar uchun yelkaga osiladigan maxsus va pishiq ryukzak turlari ommalashdi.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-img-box">
+                        <img src="imgs/mountain5.jpg" alt="rasm">
+                    </div>
+                    <div class="timeline-content">
+                        <span class="year">XXI Asr</span>
+                        <h3>Aqlli va Ekologik Sumkalar</h3>
+                        <p>Bugungi kunda sumkalar qayta ishlangan materiallardan yasaladi va noutbuklar hamda gadjetlar uchun moslashtirilgan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="delivery-section" id="delivery">
+        <div class="section-container">
+            <h2 class="section-title">Yetkazib Berish</h2>
+            <div class="delivery-wrapper">
+                <div class="delivery-deco-img">
+                    <img src="imgs/img4.jpg" alt="rasm">
+                </div>
+                <div class="delivery-steps">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <h4>1. Buyurtma qabul qilindi</h4>
+                        <p>Tizimda ma'lumotlaringiz tasdiqlanadi.</p>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <h4>2. Buyurtma tayyorlanmoqda</h4>
+                        <p>Mahsulotlar sifat bo'yicha tekshiriladi.</p>
+                    </div>
+                    <div class="step-connector alt"></div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <h4>3. Kuryerga topshirildi</h4>
+                        <p>Poçta kuryeriga taqsimlanadi.</p>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h4>4. Manzilga yetkazilmoqda</h4>
+                        <p>Kuryer yo'lda, tez orada yetib boradi.</p>
+                    </div>
+                    <div class="step-connector alt"></div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fa-solid fa-house-circle-check"></i>
+                        </div>
+                        <h4>5. Buyurtma topshirildi</h4>
+                        <p>Mahsulotni qabul qilib olasiz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us-section" id="why-us">
+        <div class="section-container">
+            <h2 class="section-title">Nima Uchun Biz?</h2>
+            <div class="why-us-wrapper">
+                <div class="why-us-grid">
+                    <div class="why-card">
+                        <i class="fa-solid fa-medal"></i>
+                        <h3>Yuqori Sifat</h3>
+                        <p>Faqat sinalgan va chidamli materiallardan tayyorlangan mahsulotlar.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fa-solid fa-tags"></i>
+                        <h3>Qulay Narxlar</h3>
+                        <p>Hamyonbop va eng sifatli yechimlar orasida muvozanat.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Tezkor Yetkazish</h3>
+                        <p>Butun mamlakat bo'ylab eng qisqa muddatda yetkazish.</p>
+                    </div>
+                    <div class="why-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>Xavfsiz Xarid</h3>
+                        <p>Har bir buyurtma kafolatlanadi va xavfsiz amalga oshiriladi.</p>
+                    </div>
+                </div>
+                <div class="why-us-img-box">
+                    <img src="imgs/img13.png" alt="rasm">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="section-container">
+            <h2 class="section-title">Aloqa va Yangiliklar</h2>
+            <div class="contact-grid">
+                <div class="contact-info-box">
+                    <img src="imgs/img2.jpg" alt="rasm" class="contact-bg-img">
+                    <div class="contact-info-content">
+                        <h3>Biz bilan bog'laning</h3>
+                        <p><i class="fa-solid fa-phone"></i> +998 90 123 45 67</p>
+                        <p><i class="fa-solid fa-envelope"></i> info@bagshop.uz</p>
+                        <p><i class="fa-solid fa-location-dot"></i> Toshkent shahar, Amir Temur ko'chasi 1-uy</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-box">
+                    <h3>Yangiliklarga obuna bo'ling</h3>
+                    <form onsubmit="handleSubscribe(event)">
+                        <div class="form-group">
+                            <input type="email" id="newsletterEmail" placeholder="Email manzilingizni kiriting" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Obuna bo'lish</button>
+                    </form>
+
+                    <div class="faq-box">
+                        <h3>Ko'p beriladigan savollar</h3>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Yetkazib berish qancha vaqt oladi?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Toshkent bo'ylab 24 soat ichida, viloyatlarga esa 2-3 ish kuni davomida yetkaziladi.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Kafolat muddati qancha?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Barcha mahsulotlarimizga 6 oy rasmiy zavod kafolati beriladi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="#" class="footer-logo">
+                    <i class="fa-solid fa-bag-shopping"></i> BIG BAG
+                </a>
+                <p>BIG BAG internet do'koni — har bir uslub va ehtiyoj uchun eng zamonaviy sumkalar hamda ryukzaklar to'plami.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigatsiya</h4>
+                <a href="#hero">Bosh sahifa</a>
+                <a href="#store">Do'kon</a>
+                <a href="#popular">Mashhur</a>
+                <a href="#history">Tarix</a>
+            </div>
+            <div class="footer-col">
+                <h4>Yordam</h4>
+                <a href="#delivery">Yetkazib berish</a>
+                <a href="#why-us">Afzalliklarimiz</a>
+                <a href="#contact">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>Bizni kuzating</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BIG BAG Do'koni. Barcha huquqlar himoyalangan.</p>
+        </div>
+        <div class="footer-big" id="footerBig">BIG BAG</div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
